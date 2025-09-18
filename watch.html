@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Visionnage temporaire</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    iframe { width: 90%; height: 500px; border: none; margin-top: 20px; }
+    #expired { display: none; color: red; font-size: 24px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🎬 Votre session a commencé</h1>
+  <div id="player">
+    <iframe src="https://tv.garden" allowfullscreen></iframe>
+  </div>
+  <div id="expired">⛔ Accès expiré</div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('player').style.display = 'none';
+      document.getElementById('expired').style.display = 'block';
+    }, 60 * 1000); // 1 minute
+  </script>
+</body>
+</html>
