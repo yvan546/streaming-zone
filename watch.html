@@ -6,59 +6,50 @@
   <style>
     body {
       margin: 0;
-      background: #000;
       overflow: hidden;
     }
-    #container {
-      position: relative;
+    /* Iframe plein écran */
+    #player {
       width: 100vw;
       height: 100vh;
-    }
-    #player {
-      width: 100%;
-      height: 100%;
       border: none;
+      display: block;
     }
-    /* Barre de camouflage en haut de l’iframe */
-    #mask {
-      position: absolute;
+    /* Barre noire en haut */
+    #overlay {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 70px; /* ajuste selon la hauteur de l'entête de tv.garden */
-      background: #000; /* même couleur que le fond pour masquer */
-      z-index: 2;
-    }
-    #timer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
+      height: 40px;
+      background: black;
       color: white;
-      font-family: sans-serif;
-      z-index: 3;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
-  <div id="container">
-    <iframe id="player" src="https://tv.garden" allowfullscreen></iframe>
-    <div id="mask"></div>
-    <p id="timer">Temps restant : 60s</p>
-  </div>
+  <div id="overlay">⏳ Temps restant : 60s</div>
+  <iframe id="player" src="https://tv.garden" allowfullscreen></iframe>
 
   <script>
     let seconds = 60;
-    const timerEl = document.getElementById('timer');
-    const container = document.getElementById('container');
+    const overlay = document.getElementById('overlay');
+    const player = document.getElementById('player');
 
     const countdown = setInterval(() => {
       seconds--;
-      timerEl.textContent = `Temps restant : ${seconds}s`;
+      overlay.textContent = `⏳ Temps restant : ${seconds}s`;
 
       if (seconds <= 0) {
         clearInterval(countdown);
-        container.innerHTML = "<h1 style='color:white;text-align:center;margin-top:40vh'>⛔ Accès expiré</h1>";
+        player.remove();
+        overlay.textContent = '⛔ Accès expiré';
       }
     }, 1000);
   </script>
